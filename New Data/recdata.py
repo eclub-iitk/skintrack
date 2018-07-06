@@ -15,7 +15,11 @@ from scipy import signal
 ip="192.168.43.127"
 socketno=3333
                                                   #no of diff inputs
+<<<<<<< HEAD
 j = 999        #no of diff value of each inputs
+=======
+j = 0        #no of diff value of each inputs
+>>>>>>> e9ca89d6705038322a0b31bb50f7a01fe85e379f
                                           #time wait for different action
                         
 try :                                                          #AF_INET (IPv4 protocol) , AF_INET6 (IPv6 protocol)
@@ -40,7 +44,11 @@ book = xlwt.Workbook(encoding="utf-8")
 sheet1 = book.add_sheet("Sheet",cell_overwrite_ok=True)
 t1 = time.time()
 k = 0
+<<<<<<< HEAD
 while(k<3500):
+=======
+while(k<700):
+>>>>>>> e9ca89d6705038322a0b31bb50f7a01fe85e379f
     data,add = s.recvfrom(1024)#recv also if u use different version of python
     d1=data.split()
     w=int(d1[1][:])
