@@ -59,7 +59,7 @@ def rms(sig):
         summ = summ + sig[i]**2
         i=i+1
     summ = summ**(0.5)
-    return int((summ*1000)/n)
+    return ((summ*1000)/n)
 
 def peaks_indices(sig,mph,mpd):
     indexes = detect_peaks.detect_peaks(sig, mph, mpd)
