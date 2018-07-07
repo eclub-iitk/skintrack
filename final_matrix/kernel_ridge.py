@@ -15,7 +15,7 @@ from sklearn.kernel_ridge import KernelRidge
 gamma=0.1
 
 # retrieving data...
-mydata=pd.read_excel("y=.xls")
+mydata=pd.read_excel("x==.xls")
 mydata1=mydata.iloc[:,:37]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix
@@ -27,7 +27,6 @@ for i in range(35):
 X=data1
 Xt=matrix(mydata1).transpose()[36].getA()[0][:, np.newaxis]
 Y=data1
-
 clf = KernelRidge(alpha = 3)
 clf.fit(X,Xt)
 Yt=clf.predict(Y)
