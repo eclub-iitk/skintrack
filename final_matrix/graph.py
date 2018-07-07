@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter 
 from scipy.fftpack import fft
-a=['hover','touch']
-for j in range(2):
-    for i in range(50):
-        mydata=pd.read_excel('%s%d.xls'%(a[j],i))
+n=
+for j in range(9):
+    for j in range(n):
+        mydata=pd.read_excel('%d,%d.xls'%(j,n))
         mydata1=mydata.iloc[:,:4]
 
         #mydata1=mydata1.rolling(20).mean() #moving average
@@ -74,6 +74,6 @@ for j in range(2):
         plt.legend()
         plt.grid()
         #plt.ylim(-28,-20)
-        plt.title('%s%d.xls'%(a[j],i))
+        plt.title('%d,%d.xls'%(j,n))
         plt.show()
 
