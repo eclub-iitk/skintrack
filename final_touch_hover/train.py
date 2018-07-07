@@ -21,7 +21,7 @@ label.as_matrix()
 x = np.array(feat)
 y = np.array(label)
 
-x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.3)
+x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.2)
 clf =KNeighborsClassifier(n_neighbors=3)
 
 #clf=svm.SVC(kernel='linear',C=1)
