@@ -9,12 +9,12 @@ from scipy.signal import butter, lfilter
 from scipy.fftpack import fft
 book = xlwt.Workbook(encoding="utf-8")
 sheet1 = book.add_sheet("Sheet",cell_overwrite_ok=True)
-a=['x00','x01','x02','x03']
+a=['x00','x01','x02','x10','x11','x12','x20','x21','x22']
 for i in range(36):
     sheet1.write(0,i,i)
-for i in range(3):
+for i in range(9):
     for j in range(20):
-        mydata=pd.read_excel('%s,%d.xls'%(a[i],j+1))  
+        mydata=pd.read_excel('%s,%d.xls'%(a[i],j))  
         mydata1=mydata.iloc[:,:4]
         mydata1.as_matrix() 
         col1=matrix(mydata1).transpose()[0].getA()[0]
@@ -184,7 +184,7 @@ for i in range(3):
         sheet1.write(j+20*i+1,2+32,rms_m1)
         sheet1.write(j+20*i+1,3+32,rms_m2)
         #IQR
-        sheet1.write(j+20*i+1,36,i)
+        sheet1.write(j+20*i+1,36,i//3)
         
 
         #entropy
@@ -199,4 +199,4 @@ for i in range(3):
         sheet1.write(j+20*i+1,2+36,ent_m1)
         sheet1.write(j+20*i+1,3+36,ent_m2)
     """
-    book.save("x==.xls")        
+    book.save("firstindex==.xls")        

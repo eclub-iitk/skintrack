@@ -12,9 +12,9 @@ from scipy import signal
 from sklearn import svm
 # ML parameters
 
-
+a=['mean','mean','mean','mean','max','max','max','max','iqr','iqr','iqr','iqr','min','min','min','min','median','median','median','median','range','range','range','range','std','std','std','std','sum','sum','sum','sum','rms','rms','rms','rms']
 # retrieving data...
-mydata=pd.read_excel("x==.xls")
+mydata=pd.read_excel("secondindex==.xls")
 mydata1=mydata.iloc[:,:37]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix
@@ -23,6 +23,7 @@ for i in range(36):
     col1=matrix(mydata1).transpose()[i].getA()[0][:, np.newaxis]
     plt.grid()
     plt.scatter(data2,col1 , c='red')
-    plt.title('feature%d.xls'%(i))
+    plt.title('feature %s.xls'%(a[i]))
     plt.show()
+
 

@@ -14,7 +14,7 @@ from sklearn.neighbors import KNeighborsRegressor
 # ML parameters
 
 # retrieving data...
-mydata=pd.read_excel("x==.xls")
+mydata=pd.read_excel("secondindex==.xls")
 mydata1=mydata.iloc[:,:37]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix
@@ -39,6 +39,7 @@ print(Yt)
 plt.plot(Xt,'ro',color='m',label='orig')
 
 plt.plot(Yt,'ro',color='b',label='knn')
+plt.title('knn_regressor')
 plt.grid()
 plt.legend()
 plt.show()

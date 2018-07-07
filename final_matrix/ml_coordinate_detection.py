@@ -14,7 +14,7 @@ from sklearn import svm
 gamma=0.1
 
 # retrieving data...
-mydata=pd.read_excel("y=.xls")
+mydata=pd.read_excel("secondindex==.xls")
 mydata1=mydata.iloc[:,:37]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix

@@ -12,7 +12,7 @@ from matplotlib import style
 style.use("ggplot")
 y=[]
 
-mydata=pd.read_excel('final_features2.xls')
+mydata=pd.read_excel('secondindex==.xls')
 feat=mydata.iloc[:,0:36]
 feat.as_matrix()
 label=mydata.iloc[:,36]
@@ -21,8 +21,8 @@ label.as_matrix()
 x = np.array(feat)
 y = np.array(label)
 
-x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.2)
-clf =KNeighborsClassifier(n_neighbors=3)
+x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.3)
+clf =KNeighborsClassifier(n_neighbors=5)
 
 #clf=svm.SVC(kernel='linear',C=1)
 #clf = RandomForestClassifier(n_estimators=10, max_depth=None,min_samples_split=2, random_state=0)
