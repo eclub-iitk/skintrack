@@ -14,7 +14,7 @@ from sklearn import svm
 
 
 # retrieving data...
-mydata=pd.read_excel("final_features2.xls")
+mydata=pd.read_excel("x==.xls")
 mydata1=mydata.iloc[:,:37]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix

@@ -59,7 +59,8 @@ print(np.shape(Xt))
 print(np.shape(Y))
 svr_rbf = svm.SVR(kernel='rbf', C=1e3, gamma=0.1)
 
-y_rbf = svr_rbf.fit(X, Xt).predict(Y)
+svr_rbf.fit(X, Xt)
+y_rbf=svr_rbf.predict(Y)
 print(y_rbf)
 
 plt.plot(y_rbf,'ro',color='r',label='rbf')

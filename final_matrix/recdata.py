@@ -17,7 +17,7 @@ ip="192.168.43.127"
 socketno=3333
                                                   #no of diff inputs
                    #no of diff value of each inputs
-v = 9   #time wait for different action
+v = 20   #time wait for different action
                         
 try :                                                          #AF_INET (IPv4 protocol) , AF_INET6 (IPv6 protocol)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)       #error -1 is returned
@@ -57,10 +57,10 @@ while(k<500):
 t2=time.time() 
 t=t2-t1 
 print(t)         
-book.save('x11,%d.xls'%(v))
+book.save('x22,%d.xls'%(v))
 s.close()
 
-mydata=pd.read_excel('x11,%d.xls'%(v))
+mydata=pd.read_excel('x22,%d.xls'%(v))
 mydata1=mydata.iloc[:,:4]
 
 #mydata1=mydata1.rolling(20).mean() #moving average
