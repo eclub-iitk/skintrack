@@ -57,10 +57,10 @@ while(k<500):
 t2=time.time() 
 t=t2-t1 
 print(t)         
-book.save('touch%d.xls'%(j))
+book.save('random.xls')
 s.close()
 
-mydata=pd.read_excel('touch%d.xls'%(j))
+mydata=pd.read_excel('random.xls')
 mydata1=mydata.iloc[:,:4]
 
 #mydata1=mydata1.rolling(20).mean() #moving average
@@ -122,7 +122,7 @@ col1 = butter_lowpass_filter(col1, cutOff, fs, order)
 col2 = butter_lowpass_filter(col2, cutOff, fs, order)
 col3 = butter_lowpass_filter(col3, cutOff, fs, order)
 col4 = butter_lowpass_filter(col4, cutOff, fs, order)
-
+print(np.shape(col1))
 col1 = signal.savgol_filter(col1,201,3)
 col2 = signal.savgol_filter(col2,201,3)
 col3 = signal.savgol_filter(col3,201,3)
@@ -148,7 +148,7 @@ diff_p2 = max(col3)-min(col3)
 diff_m2 = max(col4)-min(col4)
 print(diff_p1 ,diff_p2 ,diff_m1, diff_m2)
 '''
-"""
+
 plt.subplot(2,2,1)
 plt.plot(col1,label = 'phase1')
 plt.legend()
@@ -174,4 +174,4 @@ plt.grid()
 #plt.ylim(-0.003,0.005)
 #plt.ylim(-1,1)
 
-plt.show()"""
+plt.show()

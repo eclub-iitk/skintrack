@@ -40,13 +40,14 @@ except socket.error :
 
 
 i=0
+h = 0
 
-w1=np.zeros((300,1))
-x1=np.zeros((300,1))
-y1=np.zeros((300,1))
-z1=np.zeros((300,1))
+w1=np.zeros((500))
+x1=np.zeros((500))
+y1=np.zeros((500))
+z1=np.zeros((500))
 t1=time.time()
-while(i<400):
+while(i<600):
     data,add = s.recvfrom(1024)#recv also if u use different version of python
     d1=data.split()
     w=int(d1[1][:])
@@ -58,16 +59,16 @@ while(i<400):
         x1[i-100]=x
         y1[i-100]=y
         z1[i-100]=z
-    #print i
+    #print(i)
     i=i+1
 
 print (time.time()-t1)
 while(1):
 
-    w11=np.zeros((300,1))
-    x11=np.zeros((300,1))
-    y11=np.zeros((300,1))
-    z11=np.zeros((300,1))
+    w11=np.zeros((50))
+    x11=np.zeros((50))
+    y11=np.zeros((50))
+    z11=np.zeros((50))
     i=0
     t2=time.time()
     while(i<50):
@@ -77,44 +78,68 @@ while(1):
         x=int(d1[2][:])
         y=int(d1[3][:])
         z=int(d1[4][:])
-
+       
         w11[i]=w
         x11[i]=x
         y11[i]=y
         z11[i]=z
-        #print i
+     #   print(i)
         i=i+1
     w111=np.concatenate((w1, w11), axis=0)
-    w1=w111[50:350]
+    w1=w111[50:550]
     x111=np.concatenate((x1,x11), axis=0)
-    x1=x111[50:350]
+    x1=x111[50:550]
     y111=np.concatenate((y1, y11), axis=0)
-    y1=y111[50:350]
+    y1=y111[50:550]
     z111=np.concatenate((z1, z11), axis=0)
-    z1=z111[50:350]
-    col1=w111
-    col2=x111
-    col3=y111
-    col4=z111
+    z1=z111[50:550]
 
+    col1=w1
+    col2=x1  
+    col3=y1
+    col4=z1
+    #print(np.shape(col1))
     col1=signal.medfilt(col1,7)
     col2=signal.medfilt(col2,7)
     col3=signal.medfilt(col3,7)
     col4=signal.medfilt(col4,7)
-    """
+
+    N = 500
+    T = 2.08 / 500
+    def butter_lowpass(cutOff, fs, order=1):
+        nyq = 0.5 * fs
+        normalCutoff = cutOff / nyq
+        b, a = butter(order, normalCutoff, btype='low', analog = True)
+        return b, a
+
+    def butter_lowpass_filter(data, cutOff, fs, order=4):
+        b, a = butter_lowpass(cutOff, fs, order=order)
+        y = lfilter(b, a, data)
+        return y
+    cutOff =  5#cutoff frequency in rad/s
+    fs = 500/2.08 #sampling frequency in rad/s
+    order = 3 #order of filter
+    col1 = butter_lowpass_filter(col1, cutOff, fs, order)
+    col2 = butter_lowpass_filter(col2, cutOff, fs, order)
+    col3 = butter_lowpass_filter(col3, cutOff, fs, order)
+    col4 = butter_lowpass_filter(col4, cutOff, fs, order)
+    #print(np.shape(col1))
+    #print(np.type(col1))
     col1 = signal.savgol_filter(col1,201,3)
     col2 = signal.savgol_filter(col2,201,3)
     col3 = signal.savgol_filter(col3,201,3)
-    col4 = signal.savgol_filter(col4,201,3)"""
+    col4 = signal.savgol_filter(col4,201,3)
 
+    
     #feat_data=np.zeros((36,1))
    ##print (col1,"  ",col2,"  ",col3,"  ",col4,"  ",col5,"  ",col6,"  ",col7,"  ",col8,"  ",col9)
-    arr_p1 = col1
-    arr_p2 = col2
-    arr_m1 = col3
-    arr_m2 = col4
+    arr_p1 = col1[100:len(col1)-100]
+    arr_p2 = col2[100:len(col1)-100]
+    arr_m1 = col3[100:len(col1)-100]
+    arr_m2 = col4[100:len(col1)-100]
 #mean
-
+    #print(np.shape(arr_p1))
+    #print(np.shape(arr_p1)[:, np.newaxis])
     mean_p1 = np.mean(arr_p1)
     mean_p2 = np.mean(arr_p2)
     mean_m1 = np.mean(arr_m1)
@@ -222,7 +247,9 @@ while(1):
 
     model = KNeighborsClassifier(n_neighbors=3)
     loaded_model = pickle.load(open('finalized_model.sav', 'rb'))
-
+    print(my_feat)
+    print(h)
+    h = h+1
     result = loaded_model.predict(my_feat.T)
     print(result)
     #q=int(model.predict(my_feat))

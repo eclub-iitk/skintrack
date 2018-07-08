@@ -22,7 +22,6 @@ data1=matrix(mydata1).transpose()[0].getA()[0][:, np.newaxis]
 for i in range(35):
     col1=matrix(mydata1).transpose()[i+1].getA()[0][:, np.newaxis]
     data1=np.hstack((data1,col1))
-
 X=data1
 Xt=matrix(mydata1).transpose()[36].getA()[0][:, np.newaxis]
 Y=data1
