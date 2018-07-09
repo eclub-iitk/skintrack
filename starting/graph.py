@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.signal import butter, lfilter 
 from scipy.fftpack import fft
-a=['hover','touch']
-for j in range(2):
-    for i in range(50):
-        mydata=pd.read_excel('%s%d.xls'%(a[j],i))
+a=['x0','x1','x2']
+for j in range(3):
+    for i in range(3):
+        mydata=pd.read_excel('%s%d.xls'%(a[j],i+21))
         mydata1=mydata.iloc[:,:4]
 
         #mydata1=mydata1.rolling(20).mean() #moving average
@@ -37,7 +37,7 @@ for j in range(2):
             return y
 
         cutOff =  5#cutoff frequency in rad/s
-        fs = 500/2.08 #sampling frequency in rad/s
+        fs = 500/2.05 #sampling frequency in rad/s
         order = 3 #order of filter
         col1 = butter_lowpass_filter(col1, cutOff, fs, order)
         col2 = butter_lowpass_filter(col2, cutOff, fs, order)

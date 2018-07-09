@@ -16,7 +16,7 @@ from scipy.signal import butter, lfilter
 ip="192.168.43.127"
 socketno=3333
                                                   #no of diff inputs
-v = 5 #no of diff value of each inputs
+v = 23 #no of diff value of each inputs
                                           #time wait for different action
                        
 try :                                                          #AF_INET (IPv4 protocol) , AF_INET6 (IPv6 protocol)
@@ -52,7 +52,7 @@ while(k<500):
     x=int(d1[2][:])
     y=int(d1[3][:])
     z=int(d1[4][:])
-    print(k,w,x,y,z)
+    print(k)
     sheet1.write(k+1,0,w)
     sheet1.write(k+1,1,x)
     sheet1.write(k+1,2,y)
@@ -61,10 +61,10 @@ while(k<500):
 t2=time.time() 
 t=t2-t1 
 print(t)         
-book.save('JM2,%d.xls'%v)
+book.save('x2,%d.xls'%v)
 s.close()
 
-mydata=pd.read_excel('JM2,%d.xls'%v)
+mydata=pd.read_excel('x2,%d.xls'%v)
 mydata1=mydata.iloc[:,:4]
 
 #mydata1=mydata1.rolling(20).mean() #moving average
@@ -119,18 +119,31 @@ def butter_lowpass_filter(data, cutOff, fs, order=4):
     y = lfilter(b, a, data)
     return y
 
-cutOff = 5#cutoff frequency in rad/s
-fs = 500/2.10 #sampling frequency in rad/s
+def running_mean(x,N):
+    cumsum = np.cumsum(np.insert(x,0,0))
+    return (cumsum[N:]-cumsum[:-N])/float(N)
+cutOff = 5#toff frequency in rad/s
+fs = 500/2.05 #sampling frequency in rad/s
 order = 3 #order of filter
 col1 = butter_lowpass_filter(col1, cutOff, fs, order)
 col2 = butter_lowpass_filter(col2, cutOff, fs, order)
 col3 = butter_lowpass_filter(col3, cutOff, fs, order)
 col4 = butter_lowpass_filter(col4, cutOff, fs, order)
+"""
+p=3
+col1 = running_mean(col1,p)
+col2 = running_mean(col2,p)
+col3 = running_mean(col3,p)
+col4 = running_mean(col4,p)
+"""
+
 print(np.shape(col1))
 col1 = signal.savgol_filter(col1,201,3)
 col2 = signal.savgol_filter(col2,201,3)
 col3 = signal.savgol_filter(col3,201,3)
 col4 = signal.savgol_filter(col4,201,3)
+
+
 '''
 diff_p1 = max(col1)-min(col1)
 diff_m1 = max(col2)-min(col2)
@@ -138,6 +151,12 @@ diff_p2 = max(col3)-min(col3)
 diff_m2 = max(col4)-min(col4)
 print(diff_p1 ,diff_p2 ,diff_m1, diff_m2)
 '''
+"""
+col1 = col1[100:len(col1)-100]
+col2 = col2[100:len(col2)-100]
+col3 = col3[100:len(col3)-100]
+col4 = col4[100:len(col4)-100]
+"""
 """
 plt.subplot(2,2,1)
 plt.plot(col1,label = 'phase1')

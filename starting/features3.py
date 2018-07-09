@@ -9,12 +9,12 @@ from scipy.signal import butter, lfilter
 from scipy.fftpack import fft
 book = xlwt.Workbook(encoding="utf-8")
 sheet1 = book.add_sheet("Sheet",cell_overwrite_ok=True)
-a=['test00','test01','test02','test10','test11','test12','test20','test21','test22']
+a=['x0','x1','x2']
 for i in range(36):
     sheet1.write(0,i,i)
-for i in range(9):
-    for j in range(1):
-        mydata=pd.read_excel('%s.xls'%(a[i]))  
+for i in range(3):
+    for j in range(20):
+        mydata=pd.read_excel('%s,%d.xls'%(a[i],j))  
         mydata1=mydata.iloc[:,:4]
         mydata1.as_matrix() 
         col1=matrix(mydata1).transpose()[0].getA()[0]
@@ -70,10 +70,10 @@ for i in range(9):
 
         mean_m2 = np.mean(arr_m2)
 
-        sheet1.write(j+i+1,0,mean_p1)
-        sheet1.write(j+i+1,1,mean_p2)
-        sheet1.write(j+i+1,2,mean_m1)
-        sheet1.write(j+i+1,3,mean_m2)
+        sheet1.write(20*i+j+1,0,mean_p1)
+        sheet1.write(20*i+j+1,1,mean_p2)
+        sheet1.write(20*i+j+1,2,mean_m1)
+        sheet1.write(20*i+j+1,3,mean_m2)
 
         #max
 
@@ -84,20 +84,20 @@ for i in range(9):
         max_m1 = np.amax(arr_m1)
 
         max_m2 = np.amax(arr_m2)
-        sheet1.write(j+i+1,4,max_p1)
-        sheet1.write(j+i+1,5,max_p2)
-        sheet1.write(j+i+1,6,max_m1)
-        sheet1.write(j+i+1,7,max_m2)
+        sheet1.write(20*i+j+1,4,max_p1)
+        sheet1.write(20*i+j+1,5,max_p2)
+        sheet1.write(20*i+j+1,6,max_m1)
+        sheet1.write(20*i+j+1,7,max_m2)
 
 
         iqr_p1 = myfeat.IQR(arr_p1)
         iqr_p2 = myfeat.IQR(arr_p2)
         iqr_m1 = myfeat.IQR(arr_m1)
         iqr_m2 = myfeat.IQR(arr_m2)
-        sheet1.write(j+i+1,8,iqr_p1)
-        sheet1.write(j+i+1,9,iqr_p2)
-        sheet1.write(j+i+1,10,iqr_m1)
-        sheet1.write(j+i+1,11,iqr_m2)
+        sheet1.write(20*i+j+1,8,iqr_p1)
+        sheet1.write(20*i+j+1,9,iqr_p2)
+        sheet1.write(20*i+j+1,10,iqr_m1)
+        sheet1.write(20*i+j+1,11,iqr_m2)
 
 
         #min
@@ -110,10 +110,10 @@ for i in range(9):
 
         min_m2 = np.amin(arr_m2)
 
-        sheet1.write(j+i+1,12,min_p1)
-        sheet1.write(j+i+1,13,min_p2)
-        sheet1.write(j+i+1,14,min_m1)
-        sheet1.write(j+i+1,15,min_m2)
+        sheet1.write(20*i+j+1,12,min_p1)
+        sheet1.write(20*i+j+1,13,min_p2)
+        sheet1.write(20*i+j+1,14,min_m1)
+        sheet1.write(20*i+j+1,15,min_m2)
 
         #median
 
@@ -124,10 +124,10 @@ for i in range(9):
         med_m1 = np.median(arr_m1)
 
         med_m2 = np.median(arr_m2)
-        sheet1.write(j+i+1,0+16,med_p1)
-        sheet1.write(j+i+1,1+16,med_p2)
-        sheet1.write(j+i+1,2+16,med_m1)
-        sheet1.write(j+i+1,3+16,med_m2)
+        sheet1.write(20*i+j+1,0+16,med_p1)
+        sheet1.write(20*i+j+1,1+16,med_p2)
+        sheet1.write(20*i+j+1,2+16,med_m1)
+        sheet1.write(20*i+j+1,3+16,med_m2)
 
 
         #range
@@ -137,10 +137,10 @@ for i in range(9):
 
         range_m1 = max_m1-min_m1
         range_m2 = max_m2-min_m2
-        sheet1.write(j+i+1,0+20,range_p1)
-        sheet1.write(j+i+1,1+20,range_p2)
-        sheet1.write(j+i+1,2+20,range_m1)
-        sheet1.write(j+i+1,3+20,range_m2)
+        sheet1.write(20*i+j+1,0+20,range_p1)
+        sheet1.write(20*i+j+1,1+20,range_p2)
+        sheet1.write(20*i+j+1,2+20,range_m1)
+        sheet1.write(20*i+j+1,3+20,range_m2)
 
 
         #standard deviation
@@ -153,10 +153,10 @@ for i in range(9):
 
         std_m2 = np.std(arr_m2)
 
-        sheet1.write(j+i+1,0+24,std_p1)
-        sheet1.write(j+i+1,1+24,std_p2)
-        sheet1.write(j+i+1,2+24,std_m1)
-        sheet1.write(j+i+1,3+24,std_m2)
+        sheet1.write(20*i+j+1,0+24,std_p1)
+        sheet1.write(20*i+j+1,1+24,std_p2)
+        sheet1.write(20*i+j+1,2+24,std_m1)
+        sheet1.write(20*i+j+1,3+24,std_m2)
 
         #sum
 
@@ -168,10 +168,10 @@ for i in range(9):
 
         sum_m2 = np.sum(arr_m2)
 
-        sheet1.write(j+i+1,0+28,sum_p1)
-        sheet1.write(j+i+1,1+28,sum_p2)
-        sheet1.write(j+i+1,2+28,sum_m1)
-        sheet1.write(j+i+1,3+28,sum_m2)
+        sheet1.write(20*i+j+1,0+28,sum_p1)
+        sheet1.write(20*i+j+1,1+28,sum_p2)
+        sheet1.write(20*i+j+1,2+28,sum_m1)
+        sheet1.write(20*i+j+1,3+28,sum_m2)
 
         #rms
         rms_p1 = myfeat.rms(arr_p1)
@@ -179,12 +179,12 @@ for i in range(9):
         rms_m1 = myfeat.rms(arr_m1)
         rms_m2 = myfeat.rms(arr_m2)
 
-        sheet1.write(j+i+1,0+32,rms_p1)
-        sheet1.write(j+i+1,1+32,rms_p2)
-        sheet1.write(j+i+1,2+32,rms_m1)
-        sheet1.write(j+i+1,3+32,rms_m2)
+        sheet1.write(20*i+j+1,0+32,rms_p1)
+        sheet1.write(20*i+j+1,1+32,rms_p2)
+        sheet1.write(20*i+j+1,2+32,rms_m1)
+        sheet1.write(20*i+j+1,3+32,rms_m2)
         #IQR
-        sheet1.write(j+i+1,36,i//3)
+        sheet1.write(20*i+j+1,36,i)
         
 
         #entropy
@@ -194,9 +194,9 @@ for i in range(9):
         ent_m1 = myfeat.entropy(arr_m1)
         ent_m2 = myfeat.entropy(arr_m2)
         print(ent_p1)
-        sheet1.write(j+i+1,0+36,ent_p1)
-        sheet1.write(j+i+1,1+36,ent_p2)
-        sheet1.write(j+i+1,2+36,ent_m1)
-        sheet1.write(j+i+1,3+36,ent_m2)
+        sheet1.write(20*i+j+1,0+36,ent_p1)
+        sheet1.write(20*i+j+1,1+36,ent_p2)
+        sheet1.write(20*i+j+1,2+36,ent_m1)
+        sheet1.write(20*i+j+1,3+36,ent_m2)
     """
     book.save("1test==.xls")        

@@ -19,6 +19,7 @@ from scipy import signal
 from scipy.fftpack import fft
 from scipy.signal import butter, lfilter
 
+
 mydata=pd.read_excel('1test==.xls')
 feat=mydata.iloc[:,0:36]
 feat.as_matrix()
@@ -26,9 +27,15 @@ label=mydata.iloc[:,36]
 label.as_matrix()
 x = np.array(feat)
 y = np.array(label)
+
 model =KNeighborsClassifier(n_neighbors=3)
 model.fit(x,y.ravel())
 
+svr_rbf = svm.SVR(kernel='rbf', C=1e3, gamma=0.1)
+svr_rbf.fit(x,y )
+
+
+"""
 mydata1=pd.read_excel('2test==.xls')
 feat1=mydata1.iloc[:,0:36]
 feat1.as_matrix()
@@ -38,7 +45,7 @@ x1 = np.array(feat1)
 y1 = np.array(label1)
 model1 =KNeighborsClassifier(n_neighbors=3)
 model1.fit(x1,y1.ravel())
-
+"""
 
 
 ip="192.168.43.127"
@@ -266,7 +273,7 @@ while(1):
     my_feat[35]=rms_m2
 
     result = model.predict(my_feat.T)
-    result1 = model1.predict(my_feat.T)
+    result1 = svr_rbf.predict(my_feat.T)
     print(result,result1)
     print(h)
     h=h+1
