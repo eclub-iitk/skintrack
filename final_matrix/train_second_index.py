@@ -22,8 +22,8 @@ label.as_matrix()
 x = np.array(feat)
 y = np.array(label)
 
-x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.3)
-model2 =KNeighborsClassifier(n_neighbors=5)
+x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.1)
+model2 =KNeighborsClassifier(n_neighbors=3)
 
 #clf=svm.SVC(kernel='linear',C=1)
 #clf = RandomForestClassifier(n_estimators=10, max_depth=None,min_samples_split=2, random_state=0)
@@ -35,5 +35,5 @@ pickle.dump(model2, open(filename, 'wb'))
 
 predictions=model2.predict(x_test)
 accuracy=accuracy_score(y_test,predictions)
-#print(y_test,predictions)
-#print ("Accuracy = ", accuracy)
+print(y_test,predictions)
+print ("Accuracy = ", accuracy)

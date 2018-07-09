@@ -46,6 +46,7 @@ for i in range(6):
         col2 = signal.savgol_filter(col2,201,3)
         col3 = signal.savgol_filter(col3,201,3)
         col4 = signal.savgol_filter(col4,201,3)
+        
         col1=col1[100:len(col1)-100]
         col2=col2[100:len(col1)-100]
         col3=col3[100:len(col1)-100]

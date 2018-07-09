@@ -19,7 +19,23 @@ import pickle
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.fftpack import fft
-from scipy.signal import butter, lfilter 
+from scipy.signal import butter, lfilter
+mydata=pd.read_excel('secondindex==.xls')
+feat=mydata.iloc[:,0:36]
+feat.as_matrix()
+label=mydata.iloc[:,36]
+label.as_matrix()
+
+x = np.array(feat)
+y = np.array(label)
+
+x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.2)
+model =KNeighborsClassifier(n_neighbors=3)
+model.fit(x_train,y_train.ravel())
+predictions=model.predict(x_test)
+accuracy=accuracy_score(y_test,predictions) 
+
+
 
 ip="192.168.43.127"
 socketno=3333
@@ -42,6 +58,7 @@ except socket.error:
 
 
 i=0
+h=0
 
 w1=np.zeros((500))
 x1=np.zeros((500))
@@ -66,6 +83,11 @@ while(i<600):
 print (time.time()-t1)
 while(1):
 
+    w111 = np.zeros(550)
+    x111 = np.zeros(550)
+    y111 = np.zeros(550)
+    z111 = np.zeros(550)
+
     w11=np.zeros((50))
     x11=np.zeros((50))
     y11=np.zeros((50))
@@ -73,7 +95,7 @@ while(1):
     i=0
     t2=time.time()
     while(i<50):
-        d1 = s.recvfrom(1024)
+        data,add = s.recvfrom(1024)
         d1=data.split()
         w=int(d1[1][:])
         x=int(d1[2][:])
@@ -103,6 +125,24 @@ while(1):
     col2=signal.medfilt(col2,7)
     col3=signal.medfilt(col3,7)
     col4=signal.medfilt(col4,7)
+
+    def butter_lowpass(cutOff, fs, order=1):
+        nyq = 0.5 * fs
+        normalCutoff = cutOff / nyq
+        b, a = butter(order, normalCutoff, btype='low', analog = True)
+        return b, a
+
+    def butter_lowpass_filter(data, cutOff, fs, order=4):
+        b, a = butter_lowpass(cutOff, fs, order=order)
+        y = lfilter(b, a, data)
+        return y
+    cutOff =  5#cutoff frequency in rad/s
+    fs = 500/2.08 #sampling frequency in rad/s
+    order = 3 #order of filter
+    col1 = butter_lowpass_filter(col1, cutOff, fs, order)
+    col2 = butter_lowpass_filter(col2, cutOff, fs, order)
+    col3 = butter_lowpass_filter(col3, cutOff, fs, order)
+    col4 = butter_lowpass_filter(col4, cutOff, fs, order)
 
     col1 = signal.savgol_filter(col1,201,3)
     col2 = signal.savgol_filter(col2,201,3)
@@ -221,12 +261,8 @@ while(1):
     my_feat[34]=rms_m1
     my_feat[35]=rms_m2
 
-    model1 = KNeighborsClassifier(n_neighbors=3)
-    loaded_model = pickle.load(open('finalized_model1.sav', 'rb'))
-    result1 = loaded_model.predict(my_feat.T)
-
-    model2 = KNeighborsClassifier(n_neighbors=3)
-    loaded_model = pickle.load(open('finalized_model2.sav', 'rb'))
-    result2 = loaded_model.predict(my_feat.T)
+    result = model.predict(my_feat.T)
+    print(result)
+    print(h)
+    h=h+1
     
-    print(result1,result2)

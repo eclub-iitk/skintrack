@@ -22,7 +22,7 @@ label.as_matrix()
 x = np.array(feat)
 y = np.array(label)
 
-x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.2)
+x_train, x_test, y_train, y_test= train_test_split(x,y,test_size=0.1)
 model1 =KNeighborsClassifier(n_neighbors=3)
 
 #clf=svm.SVC(kernel='linear',C=1)
@@ -35,5 +35,5 @@ pickle.dump(model1, open(filename, 'wb'))
 predictions=model1.predict(x_test)
 accuracy=accuracy_score(y_test,predictions)
 
-#print(y_test,predictions)
-#print ("Accuracy = ", accuracy)
+print(y_test,predictions)
+print ("Accuracy = ", accuracy)

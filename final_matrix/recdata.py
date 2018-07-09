@@ -57,10 +57,10 @@ while(k<500):
 t2=time.time() 
 t=t2-t1 
 print(t)         
-book.save('x13%d.xls'%(v))
+book.save('random%d.xls'%(v))
 s.close()
 
-mydata=pd.read_excel('x13%d.xls'%(v))
+mydata=pd.read_excel('random%d.xls'%(v))
 mydata1=mydata.iloc[:,:4]
 
 #mydata1=mydata1.rolling(20).mean() #moving average
@@ -115,9 +115,9 @@ def butter_lowpass_filter(data, cutOff, fs, order=4):
     y = lfilter(b, a, data)
     return y
 
-cutOff =  5#cutoff frequency in rad/s
-fs = 500/2.08 #sampling frequency in rad/s
-order = 3 #order of filter
+cutOff =  2#cutoff frequency in rad/s
+fs = 500/2.2 #sampling frequency in rad/s
+order = 4 #order of filter
 col1 = butter_lowpass_filter(col1, cutOff, fs, order)
 col2 = butter_lowpass_filter(col2, cutOff, fs, order)
 col3 = butter_lowpass_filter(col3, cutOff, fs, order)
