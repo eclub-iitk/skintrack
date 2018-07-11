@@ -18,10 +18,10 @@ def butter_lowpass_filter(data, cutOff, fs, order=4):
     y = lfilter(b, a, data)
     return y
 
-a=['rl']
-for j in range(1):
-    for i in range(10):
-        mydata=pd.read_excel('%s,%d.xls'%(a[j],i+2))
+a=['nt','2t','lr','rl','ht','lt','hover'] 
+for j in range(7):
+    for i in range(29):
+        mydata=pd.read_excel('%s,%d.xls'%(a[j],i+1))
        
         
         mydata1=mydata.iloc[:,:4]
@@ -53,18 +53,23 @@ for j in range(1):
         col3 = butter_lowpass_filter(col3, cutOff, fs, order)
         col4 = butter_lowpass_filter(col4, cutOff, fs, order)
 
-        print(np.shape(col1))
+        #print(np.shape(col1))
 
         col1 = signal.savgol_filter(col1,201,3)
         col2 = signal.savgol_filter(col2,201,3)
         col3 = signal.savgol_filter(col3,201,3)
         col4 = signal.savgol_filter(col4,201,3)
-
+ 
+        col1=col1[100:400]
+        col2=col2[100:400]
+        col3=col3[100:400]
+        col4=col4[100:400]
+        
         col1=col1-np.mean(col1)
         col2=col2-np.mean(col2)
         col3=col3-np.mean(col3)
         col4=col4-np.mean(col4)
-
+    
         plt.subplot(2,2,1)
         plt.plot(col1,label = 'phase1')
         plt.legend()

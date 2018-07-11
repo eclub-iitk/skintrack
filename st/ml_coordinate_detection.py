@@ -14,8 +14,8 @@ from sklearn import svm
 gamma=0.3
 
 # retrieving data...
-mydata=pd.read_excel("feat.xls")
-mydata1=mydata.iloc[:,:37]
+mydata=pd.read_excel("final.xls")
+mydata1=mydata.iloc[:,:53]
 #print(np.shape(labels))
 mydata1.as_matrix()  #converting the dataframe to Matrix
 data1=matrix(mydata1).transpose()[0].getA()[0][:, np.newaxis]
@@ -23,7 +23,7 @@ for i in range(35):
     col1=matrix(mydata1).transpose()[i+1].getA()[0][:, np.newaxis]
     data1=np.hstack((data1,col1))
 X=data1
-Xt=matrix(mydata1).transpose()[36].getA()[0][:, np.newaxis]
+Xt=matrix(mydata1).transpose()[52].getA()[0][:, np.newaxis]
 Y=data1
 """
 mydata=pd.read_excel("total_feature_testing.xls")

@@ -35,7 +35,7 @@ socketno=3333
 
 
                                                   #no of diff inputs
-j = 3 #no of diff value of each inputs
+j = 50   #no of diff value of each inputs
                                           #time wait for different action
                         
 try :                                                          #AF_INET (IPv4 protocol) , AF_INET6 (IPv6 protocol)
@@ -84,12 +84,12 @@ while(k<values):
 t2=time.time() 
 t=t2-t1 
 print(t)         
-book.save('rl,%d.xls'%(j))
+book.save('2t,%d.xls'%(j))
 s.close()
 
 
 
-mydata=pd.read_excel('rl,%d.xls'%(j))
+mydata=pd.read_excel('2t,%d.xls'%(j))
 mydata1=mydata.iloc[:,:4]
 
 
@@ -126,16 +126,18 @@ col2 = signal.savgol_filter(col2,201,3)
 col3 = signal.savgol_filter(col3,201,3)
 col4 = signal.savgol_filter(col4,201,3)
 
-col1=col1-np.mean(col1)
-col2=col2-np.mean(col2)
-col3=col3-np.mean(col3)
-col4=col4-np.mean(col4)
-'''
+
+
 col1=col1[100:400]
 col2=col2[100:400]
 col3=col3[100:400]
 col4=col4[100:400]
-'''
+
+col1=col1-np.mean(col1)
+col2=col2-np.mean(col2)
+col3=col3-np.mean(col3)
+col4=col4-np.mean(col4)
+
 
 plt.subplot(2,2,1)
 plt.plot(col1,label = 'phase1')
@@ -160,6 +162,5 @@ plt.plot(col4,label = 'phase2')
 plt.legend()
 plt.grid()
 #plt.ylim(0.0215,0.0245)
-
 
 plt.show()
